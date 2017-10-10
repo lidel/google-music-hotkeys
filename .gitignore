@@ -1,0 +1,9 @@
+vendor
+node_modules
+package-lock.json
+firefox
+cache
+build
+npm-debug.log
+add-on/browser-polyfill.min.js
+.*~

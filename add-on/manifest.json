@@ -1,0 +1,38 @@
+{
+    "manifest_version": 2,
+    "name": "Google Music Hotkeys",
+    "version" : "1.0.0",
+
+    "description": "Use keyboard shortcuts for controlling Google Music",
+    "homepage_url": "https://github.com/lidel/google-music-hotkeys",
+    "author": "Marcin Rataj",
+    "icons": {
+        "128": "Play_music_triangle.png"
+    },
+
+    "permissions": [
+        "https://play.google.com/music/listen*",
+        "tabs",
+        "commands"
+    ],
+
+    "background": {
+        "scripts": ["browser-polyfill.min.js", "background.js"]
+    },
+
+	"commands": {
+		"toggle-playback": {
+			"suggested_key": { "default": "Ctrl+Shift+8" },
+			"description": "Toggle Playback"
+		},
+		"previous-song": {
+			"suggested_key": { "default": "Ctrl+Shift+9" },
+			"description": "Previous Song"
+		},
+		"next-song": {
+			"suggested_key": { "default": "Ctrl+Shift+0" },
+			"description": "Next Song"
+		}
+	}
+
+}
