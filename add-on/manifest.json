@@ -12,8 +12,7 @@
 
     "permissions": [
         "https://play.google.com/music/listen*",
-        "tabs",
-        "commands"
+        "tabs"
     ],
 
     "background": {
