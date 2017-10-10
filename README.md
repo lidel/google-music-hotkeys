@@ -1,6 +1,6 @@
 # Google Music Hotkeys
 
-> Browser extension that adds keyboard shortcuts for controlling Google Music
+> Browser extension that adds keyboard control to web version of Google Music
 
 ## Background
 
@@ -12,16 +12,19 @@ That is all.
 - no GUI ;-)
 - works in Firefox and Chrome
 - playback control
-    - toggle playback: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>
-    - previous song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>
-    - next song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>
+    - toggle playback: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>, visual hint: <kbd>*</kbd>
+    - previous song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>, visual hint: <kbd>(</kbd>
+    - next song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>, visual hint: <kbd>)</kbd>
 - customize default shortcuts
     - Chrome: via `chrome://extensions/configureCommands` dialog
     - Firefox: no cigar yet (https://bugzilla.mozilla.org/show_bug.cgi?id=1303384)
 
 ## Install
 
-TODO
+| Firefox                                                                                                                                                          | Chrome / Chromium                                                                                                                                                                              |
+| -------------                                                                                                                                                    | -------------                                                                                                                                                                                  |
+| [![Get the add-on](https://blog.mozilla.org/addons/files/2015/11/AMO-button_1.png)](https://addons.mozilla.org/en-US/firefox/addon/google-music-hotkeys-webext/) | [![](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/google-music-hotkeys/fgjkdpncbpnlhbdbmelbhmapblgaamkl) |
+
 
 ## Development
 

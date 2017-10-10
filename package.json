@@ -1,6 +1,6 @@
 {
   "name": "google-music-hotkeys",
-  "homepage": "https://addons.mozilla.org/en-US/firefox/addon/google-music-hotkeys/",
+  "homepage": "https://github.com/lidel/google-music-hotkeys",
   "license": "CC0-1.0",
   "repository": {
     "type": "git",
