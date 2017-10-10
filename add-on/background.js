@@ -3,6 +3,13 @@
 
 const googleMusicPlayerUrl = 'https://play.google.com/music/listen*'
 
+async function openGoogleMusic() {
+  await browser.tabs.create({
+    pinned: true,
+    url: googleMusicPlayerUrl.replace('*', '')
+  })
+}
+
 function scriptFor (command) {
   switch (command) {
     case 'toggle-playback':
@@ -29,10 +36,11 @@ function scriptThatClicksOn (actionName) {
 
 browser.commands.onCommand.addListener(async (command) => {
   console.log('[Google Music Hotkeys] executing command: ', command)
-  const gmTabs = await browser.tabs.query({
-    url: googleMusicPlayerUrl,
-    status: 'complete'
-  })
+  const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
+  if (gmTabs.length === 0) {
+    openGoogleMusic()
+    return
+  }
   for (let tab of gmTabs) {
     // console.log('tab', tab)
     browser.tabs.executeScript(tab.id, {

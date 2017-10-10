@@ -11,6 +11,7 @@ That is all.
 
 - no GUI ;-)
 - works in Firefox and Chrome
+- open and pin Google Music if it is not open yet
 - playback control
     - toggle playback: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>, visual hint: <kbd>*</kbd>
     - previous song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>, visual hint: <kbd>(</kbd>
