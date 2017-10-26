@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Google Music Hotkeys",
-    "version" : "1.1.0",
+    "version" : "1.2.0",
 
     "description": "Use keyboard shortcuts to control Google Music",
     "homepage_url": "https://github.com/lidel/google-music-hotkeys",
@@ -12,11 +12,19 @@
 
     "permissions": [
         "https://play.google.com/music/listen*",
+        "contextMenus",
         "tabs"
     ],
 
     "background": {
         "scripts": ["browser-polyfill.min.js", "background.js"]
+    },
+
+    "browser_action": {
+        "browser_style": true,
+        "default_icon": {
+            "128": "Play_music_triangle.png"
+        }
     },
 
 	"commands": {

@@ -9,16 +9,17 @@ That is all.
 
 ## Features
 
-- no GUI ;-)
 - works in Firefox and Chrome
+- regular click toggles playback
+- context-click shows menu with other playback controls
 - open and pin Google Music if it is not open yet
-- playback control
+- keyboard-based playback control
     - toggle playback: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>, visual hint: <kbd>*</kbd>
     - previous song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>, visual hint: <kbd>(</kbd>
     - next song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>, visual hint: <kbd>)</kbd>
-- customize default shortcuts
-    - Chrome: via `chrome://extensions/configureCommands` dialog
-    - Firefox: no cigar yet (https://bugzilla.mozilla.org/show_bug.cgi?id=1303384)
+    - how to customize default shortcuts?
+        - Chrome: via `chrome://extensions/configureCommands` dialog
+        - Firefox: no cigar yet (https://bugzilla.mozilla.org/show_bug.cgi?id=1303384)
 
 ## Install
 

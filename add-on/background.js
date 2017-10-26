@@ -2,6 +2,9 @@
 /* eslint-env browser, webextensions */
 
 const googleMusicPlayerUrl = 'https://play.google.com/music/listen*'
+const togglePlaybackCommand = 'toggle-playback'
+const previousSongCommand = 'previous-song'
+const nextSongCommand = 'next-song'
 
 async function openGoogleMusic() {
   await browser.tabs.create({
@@ -12,11 +15,11 @@ async function openGoogleMusic() {
 
 function scriptFor (command) {
   switch (command) {
-    case 'toggle-playback':
+    case togglePlaybackCommand:
       return scriptThatClicksOn('play-pause')
-    case 'previous-song':
+    case previousSongCommand:
       return scriptThatClicksOn('rewind')
-    case 'next-song':
+    case nextSongCommand:
       return scriptThatClicksOn('forward')
   }
 }
@@ -34,7 +37,7 @@ function scriptThatClicksOn (actionName) {
   return '(' + script.toString().replace('kitty', actionName) + ')()'
 }
 
-browser.commands.onCommand.addListener(async (command) => {
+async function executeGoogleMusicCommand(command) {
   console.log('[Google Music Hotkeys] executing command: ', command)
   const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
   if (gmTabs.length === 0) {
@@ -44,17 +47,35 @@ browser.commands.onCommand.addListener(async (command) => {
   for (let tab of gmTabs) {
     // console.log('tab', tab)
     browser.tabs.executeScript(tab.id, {
+      runAt: 'document_start',
       code: scriptFor(command)
     })
   }
-})
+}
 
-/*
-let gettingAllCommands = browser.commands.getAll()
-gettingAllCommands.then((commands) => {
-  for (let command of commands) {
-    console.log(command)
-  }
+// listen for keyboard hotkeys
+browser.commands.onCommand.addListener(executeGoogleMusicCommand)
+
+// regular click on browser action toggles playback
+browser.browserAction.onClicked.addListener(() => executeGoogleMusicCommand('toggle-playback'))
+
+// context-click on browser action displays more options
+browser.contextMenus.create({
+  id: 'toggle-playback-menu-item',
+  title: 'Toggle Playback',
+  contexts: ['browser_action'],
+  onclick: () => executeGoogleMusicCommand(togglePlaybackCommand)
 })
-*/
+browser.contextMenus.create({
+  id: 'previous-song-menu-item',
+  title: 'Previous Song',
+  contexts: ['browser_action'],
+  onclick: () => executeGoogleMusicCommand(previousSongCommand)
+})
+browser.contextMenus.create({
+  id: 'next-song-menu-item',
+  title: 'Next Song',
+  contexts: ['browser_action'],
+  onclick: () => executeGoogleMusicCommand(nextSongCommand)
+})
 
