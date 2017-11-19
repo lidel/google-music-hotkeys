@@ -6,7 +6,7 @@ const togglePlaybackCommand = 'toggle-playback'
 const previousSongCommand = 'previous-song'
 const nextSongCommand = 'next-song'
 
-async function openGoogleMusic() {
+async function openGoogleMusic () {
   await browser.tabs.create({
     pinned: true,
     url: googleMusicPlayerUrl.replace('*', '')
@@ -27,17 +27,61 @@ function scriptFor (command) {
 function scriptThatClicksOn (actionName) {
   let script = function () {
     let buttons = document.getElementsByTagName('paper-icon-button')
+    let disabledMainPlayButton = false
     for (let i = 0; i < buttons.length; i++) {
       if (buttons[i].getAttribute('data-id') === 'kitty') {
-        buttons[i].click()
+        if (buttons[i].style['pointer-events'] === 'none') {
+          disabledMainPlayButton = true
+        } else {
+          buttons[i].click()
+        }
         break
       }
+    }
+    let tryFallbackButtons = function () {
+      // try I'm Feeling Lucky button (main page)
+      let buttons = document.getElementsByTagName('gpm-ifl-button')
+      if (buttons.length > 0) {
+        console.log('[Google Music Hotkeys] Playing Feeling Lucky Radio')
+        buttons[0].click()
+        return
+      }
+      // try first 'play' button (eg. on album listing page)
+      buttons = document.getElementsByTagName('button')
+      for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].getAttribute('data-id') === 'play') {
+          console.log('[Google Music Hotkeys] Playing first playable item')
+          buttons[i].click()
+          return
+        }
+      }
+      // try standalone play button (eg. on a radio page)
+      const playButton = document.getElementById('playButton')
+      if (playButton) {
+        console.log('[Google Music Hotkeys] Playing current context')
+        playButton.click()
+        return
+      }
+      // try context's shuffle button (eg. on the main library page)
+      buttons = document.getElementsByTagName('paper-button')
+      for (let i = 0; i < buttons.length; i++) {
+        if (buttons[i].getAttribute('data-id') === 'shuffle-my-library') {
+          console.log('[Google Music Hotkeys] Playing shuffled library')
+          buttons[i].click()
+          return
+        }
+      }
+    }
+    if (disabledMainPlayButton) {
+      // https://github.com/lidel/google-music-hotkeys/issues/2
+      console.log('[Google Music Hotkeys] trying to load a new playlist..')
+      tryFallbackButtons()
     }
   }
   return '(' + script.toString().replace('kitty', actionName) + ')()'
 }
 
-async function executeGoogleMusicCommand(command) {
+async function executeGoogleMusicCommand (command) {
   console.log('[Google Music Hotkeys] executing command: ', command)
   const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
   if (gmTabs.length === 0) {
@@ -78,4 +122,3 @@ browser.contextMenus.create({
   contexts: ['browser_action'],
   onclick: () => executeGoogleMusicCommand(nextSongCommand)
 })
-
