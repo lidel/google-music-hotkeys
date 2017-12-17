@@ -10,15 +10,17 @@ That is all.
 ## Features
 
 - works in Firefox and Chrome
-- regular click toggles playback
-- context-click shows menu with other playback controls
-- open and pin Google Music if it is not open yet
-- try to build a new playlist when one hasn't been loaded yet
 - keyboard-based playback control
     - toggle playback: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>, visual hint: <kbd>*</kbd>
     - previous song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>, visual hint: <kbd>(</kbd>
     - next song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>, visual hint: <kbd>)</kbd>
     - [how to customize default shortcuts?](#how-to-customize-shortcuts)
+- toolbar button
+    - regular click toggles playback
+    - context-click shows menu with other playback controls
+- open and pin Google Music if it is not open yet
+- try to build a new playlist when one hasn't been loaded yet
+- support for autoplay of bookmarks with `&autoplay=true` parameter
 
 ## Install
 

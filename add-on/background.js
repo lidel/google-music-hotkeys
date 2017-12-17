@@ -97,8 +97,23 @@ async function executeGoogleMusicCommand (command) {
   }
 }
 
+async function onRuntimeMessage (request, sender) {
+  console.log('[Google Music Hotkeys] onRuntimeMessage', request)
+  await browser.tabs.executeScript(sender.tab.id, {
+    runAt: 'document_start',
+    code: scriptFor(request.command)
+  })
+}
+
 // listen for keyboard hotkeys
 browser.commands.onCommand.addListener(executeGoogleMusicCommand)
+
+// listen for messages from content script
+setTimeout(() => {
+  // this needs to be run bit later due to a bug in Chrome with current browser polyfill:
+  // Uncaught Error: runtime namespace is null or undefined
+  browser.runtime.onMessage.addListener(onRuntimeMessage)
+}, 250)
 
 // regular click on browser action toggles playback
 browser.browserAction.onClicked.addListener(() => executeGoogleMusicCommand('toggle-playback'))
