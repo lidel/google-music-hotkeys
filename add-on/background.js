@@ -5,6 +5,7 @@ const googleMusicPlayerUrl = 'https://play.google.com/music/listen*'
 const togglePlaybackCommand = 'toggle-playback'
 const previousSongCommand = 'previous-song'
 const nextSongCommand = 'next-song'
+const backupSuffix = '-backup'
 
 async function openGoogleMusic () {
   await browser.tabs.create({
@@ -16,10 +17,13 @@ async function openGoogleMusic () {
 function scriptFor (command) {
   switch (command) {
     case togglePlaybackCommand:
+    case togglePlaybackCommand + backupSuffix:
       return scriptThatClicksOn('play-pause')
     case previousSongCommand:
+    case previousSongCommand + backupSuffix:
       return scriptThatClicksOn('rewind')
     case nextSongCommand:
+    case nextSongCommand + backupSuffix:
       return scriptThatClicksOn('forward')
   }
 }

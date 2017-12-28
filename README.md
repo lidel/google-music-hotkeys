@@ -11,9 +11,9 @@ That is all.
 
 - works in Firefox and Chrome
 - keyboard-based playback control
-    - toggle playback: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>, visual hint: <kbd>*</kbd>
-    - previous song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>, visual hint: <kbd>(</kbd>
-    - next song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>, visual hint: <kbd>)</kbd>
+    - toggle playback: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd> OR <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>, visual hint: <kbd>*</kbd>
+    - previous song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd> OR <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>, visual hint: <kbd>(</kbd>
+    - next song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> OR <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>, visual hint: <kbd>)</kbd>
     - [how to customize default shortcuts?](#how-to-customize-shortcuts)
 - toolbar button
     - regular click toggles playback
