@@ -141,3 +141,16 @@ browser.contextMenus.create({
   contexts: ['browser_action'],
   onclick: () => executeGoogleMusicCommand(nextSongCommand)
 })
+browser.contextMenus.create({
+  id: 'open-preferences-menu-item',
+  title: 'Customize Shortcuts',
+  contexts: ['browser_action'],
+  onclick: () => {
+    browser.runtime.openOptionsPage()
+      .catch((err) => {
+        console.error('runtime.openOptionsPage() failed, opening options page in tab instead.', err)
+        // fallback for weird browsers ;-)
+        browser.tabs.create({ url: browser.extension.getURL('options.html') })
+      })
+  }
+})

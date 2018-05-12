@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Google Music Hotkeys",
-    "version" : "1.5.1",
+    "version" : "1.6.0",
 
     "description": "Use keyboard shortcuts to control Google Music",
     "homepage_url": "https://github.com/lidel/google-music-hotkeys",
@@ -9,6 +9,12 @@
     "icons": {
         "128": "Play_music_triangle.png"
     },
+
+	"applications": {
+		"gecko": {
+			"strict_min_version": "60.0b5"
+		}
+	},
 
     "permissions": [
         "https://play.google.com/music/listen*",
@@ -20,6 +26,11 @@
         "scripts": ["browser-polyfill.min.js", "background.js"]
     },
 
+    "options_ui": {
+        "page": "options.html",
+        "browser_style": true
+    },
+
     "browser_action": {
         "browser_style": true,
         "default_icon": {
@@ -29,27 +40,24 @@
 
 	"commands": {
 		"toggle-playback": {
-			"suggested_key": { "default": "Ctrl+Shift+8" },
+			"suggested_key": {
+                "default": "Ctrl+Shift+8",
+                "windows": "Alt+Shift+8"
+            },
 			"description": "Toggle Playback"
 		},
 		"previous-song": {
-			"suggested_key": { "default": "Ctrl+Shift+9" },
+			"suggested_key": {
+                "default": "Ctrl+Shift+9",
+                "windows": "Alt+Shift+9"
+            },
 			"description": "Previous Song"
 		},
 		"next-song": {
-			"suggested_key": { "default": "Ctrl+Shift+0" },
-			"description": "Next Song"
-		},
-		"toggle-playback-backup": {
-			"suggested_key": { "default": "Alt+Shift+8" },
-			"description": "Toggle Playback"
-		},
-		"previous-song-backup": {
-			"suggested_key": { "default": "Alt+Shift+9" },
-			"description": "Previous Song"
-		},
-		"next-song-backup": {
-			"suggested_key": { "default": "Alt+Shift+0" },
+			"suggested_key": {
+                "default": "Ctrl+Shift+0",
+                "windows": "Alt+Shift+0"
+            },
 			"description": "Next Song"
 		}
 	},

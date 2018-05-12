@@ -1,20 +1,26 @@
 # Google Music Hotkeys
 
-> Browser extension that adds keyboard control to web version of Google Music
+> Browser extension that adds keyboard control to the web version of Google Music
 
 ## Background
 
 I wanted to control background playback of Google Music without switching tabs.
-That is all.
+That is all :-)
 
 ## Features
 
-- works in Firefox and Chrome
+- works in Firefox and Chromium-based browsers
 - keyboard-based playback control
-    - toggle playback: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd> OR <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>, visual hint: <kbd>*</kbd>
-    - previous song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd> OR <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>, visual hint: <kbd>(</kbd>
-    - next song: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> OR <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>, visual hint: <kbd>)</kbd>
-    - [how to customize default shortcuts?](#how-to-customize-shortcuts)
+    - toggle playback
+      > default: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>, visual hint: <kbd>*</kbd>  
+      > windows: <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>8</kbd>
+    - previous song
+      > default: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>, visual hint: <kbd>(</kbd>  
+      > windows: <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>9</kbd>
+    - next song:
+      > default: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>, visual hint: <kbd>)</kbd>  
+      > windows: <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>
+- **[option to customize default shortcuts](#how-to-customize-shortcuts)**
 - toolbar button
     - regular click toggles playback
     - context-click shows menu with other playback controls
@@ -30,7 +36,27 @@ That is all.
 
 ## How To Customize Shortcuts
 
+### Firefox
+
+
+1. Open `about:addons` → _Google Music Hotkeys_ → _Preferences_
+   - ..or just right-click the Browser Action:  
+     > ![Right-click on Browser Action](https://user-images.githubusercontent.com/157609/39958925-24e00498-560a-11e8-937e-45bc8fbf43eb.png)
+3. Customize key bindings to your liking:
+   - Supported values are listed [here](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands#Shortcut_values). Changes are saved automatically.
+     > ![screenshot with old school shortcuts](https://user-images.githubusercontent.com/157609/39958533-a692daf2-5604-11e8-8e65-753175746e69.png)
+   - The shortcut may be specified as one of the following media keys:
+     <kbd>MediaPlayPause</kbd>, <kbd>MediaPrevTrack</kbd>, <kbd>MediaNextTrack</kbd>
+     > ![screenshot with media key](https://user-images.githubusercontent.com/157609/39958537-aa74679e-5604-11e8-98bf-a342676849ec.png)
+   - Keep in mind that some shortcuts can be intercepted by regular desktop apps running on your system.
+     For example, on MS Windows <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> is hijacked by system itself – see [issue #3](https://github.com/lidel/google-music-hotkeys/issues/3).
+     If something does not work, try a different shortcut.
+   - Customization works in _Firefox 60 or later_. If you are using an older version please see [issue #1](https://github.com/lidel/google-music-hotkeys/issues/1) before reporting a new bug.
+4. That is all!
+
 ### Chromium
+
+Chromium-based browsers provide global UI for managing shortcuts of all extensions.
 
 1. Open `chrome://extensions/configureCommands`
 2. Customize key bindings to your liking
@@ -40,17 +66,9 @@ That is all.
     Keep in mind that _Global_ shortcuts can interfere with regular desktop app shortcuts.
 4. That is all!
 
-### Firefox
-
-It will be possible as soon as Mozilla implements GUI for customizing key shortcuts :-)
-
-Feel free to register at Bugzilla and vote for relevant issues:
-- https://bugzilla.mozilla.org/show_bug.cgi?id=1303384
-- https://bugzilla.mozilla.org/show_bug.cgi?id=1320332
-
-To get future updates on the topic, subscribe to [Issue #1](https://github.com/lidel/google-music-hotkeys/issues/1).
 
 ## Development
+
 
 ```
 npm install
@@ -61,6 +79,8 @@ npm run firefox
 ## License
 
 `Play_music_triangle.png` from https://commons.wikimedia.org/wiki/File:Play_music_triangle.svg
+
+[webextensions-lib-shortcut-customize-ui](https://github.com/piroor/webextensions-lib-shortcut-customize-ui) is [licensed under MIT](https://github.com/piroor/webextensions-lib-shortcut-customize-ui/blob/master/LICENSE)
 
 The add-on itself is released under [CC0](LICENSE): to the extent possible under law, the author has waived all copyright and related or neighboring rights to this work, effectively placing it in the public domain.
 
