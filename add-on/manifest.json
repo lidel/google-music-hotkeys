@@ -10,12 +10,6 @@
         "128": "Play_music_triangle.png"
     },
 
-	"applications": {
-		"gecko": {
-			"strict_min_version": "60.0b5"
-		}
-	},
-
     "permissions": [
         "https://play.google.com/music/listen*",
         "contextMenus",
