@@ -52,6 +52,7 @@ That is all :-)
      For example, on MS Windows <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> is hijacked by system itself – see [issue #3](https://github.com/lidel/google-music-hotkeys/issues/3).
      If something does not work, try a different shortcut.
    - Customization works in _Firefox 60 or later_. If you are using an older version please see [issue #1](https://github.com/lidel/google-music-hotkeys/issues/1) before reporting a new bug.
+   - Firefox does not provide API for setting _Global_ shortcuts (that work when browser window is not focused) yet: [Bug 1411795 - Add global keyboard shortcut support to commands API](https://bugzilla.mozilla.org/show_bug.cgi?id=1411795).
 4. That is all!
 
 ### Chromium
