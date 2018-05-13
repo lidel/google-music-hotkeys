@@ -44,10 +44,10 @@ That is all :-)
      > ![Right-click on Browser Action](https://user-images.githubusercontent.com/157609/39958925-24e00498-560a-11e8-937e-45bc8fbf43eb.png)
 3. Customize key bindings to your liking:
    - Supported values are listed [here](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands#Shortcut_values). Changes are saved automatically.
-     > ![screenshot with old school shortcuts](https://user-images.githubusercontent.com/157609/39958533-a692daf2-5604-11e8-8e65-753175746e69.png)
+     > ![screenshot with old school shortcuts](https://user-images.githubusercontent.com/157609/39966689-5b7e9dce-56b0-11e8-886c-a98c2c3fef0e.png)
    - The shortcut may be specified as one of the following media keys:
      <kbd>MediaPlayPause</kbd>, <kbd>MediaPrevTrack</kbd>, <kbd>MediaNextTrack</kbd>
-     > ![screenshot with media key](https://user-images.githubusercontent.com/157609/39958537-aa74679e-5604-11e8-98bf-a342676849ec.png)
+     > ![screenshot with media key](https://user-images.githubusercontent.com/157609/39966694-6abf5b02-56b0-11e8-9ad4-ec1cde02bc29.png)
    - Keep in mind that some shortcuts can be intercepted by regular desktop apps running on your system.
      For example, on MS Windows <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd> is hijacked by system itself – see [issue #3](https://github.com/lidel/google-music-hotkeys/issues/3).
      If something does not work, try a different shortcut.
