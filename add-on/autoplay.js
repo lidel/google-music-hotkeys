@@ -9,7 +9,7 @@ if (decodeURIComponent(window.location.href).includes('autoplay=true')) {
     // press button only if  there is no playback
     if (playbutton && playbutton.title === 'Play') {
       clearInterval(autoplay)
-      await browser.runtime.sendMessage({command: 'toggle-playback'})
+      await browser.runtime.sendMessage({ command: 'toggle-playback' })
       console.log('[Google Music Hotkeys] Toggled playback')
     }
   }, 1000)

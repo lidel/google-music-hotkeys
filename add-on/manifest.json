@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Google Music Hotkeys",
-    "version" : "1.6.0",
+    "version" : "1.6.1",
 
     "description": "Use keyboard shortcuts to control Google Music",
     "homepage_url": "https://github.com/lidel/google-music-hotkeys",
