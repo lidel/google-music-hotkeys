@@ -1,3 +1,3 @@
 [submodule "add-on/webextensions-lib-shortcut-customize-ui"]
 	path = add-on/webextensions-lib-shortcut-customize-ui
-	url = git@github.com:lidel/webextensions-lib-shortcut-customize-ui.git
+	url = git@github.com:piroor/webextensions-lib-shortcut-customize-ui.git
