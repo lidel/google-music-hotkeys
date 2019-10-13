@@ -1,10 +1,10 @@
-# Google Music Hotkeys
+# Google / YouTube Music Hotkeys
 
-> Browser extension that adds keyboard control to the web version of Google Music
+> Browser extension that adds keyboard control to the web version of Google / YouTube Music 
 
 ## Background
 
-I wanted to control background playback of Google Music without switching tabs.
+I wanted to control background playback of Google / YouTube Music without switching tabs.
 That is all :-)
 
 ## Features
@@ -39,7 +39,7 @@ That is all :-)
 ### Firefox
 
 
-1. Open `about:addons` → _Google Music Hotkeys_ → _Preferences_
+1. Open `about:addons` → Google / YouTube Music Hotkeys_ → _Preferences_
    - ..or just right-click the Browser Action:  
      > ![Right-click on Browser Action](https://user-images.githubusercontent.com/157609/39958925-24e00498-560a-11e8-937e-45bc8fbf43eb.png)
 3. Customize key bindings to your liking:
