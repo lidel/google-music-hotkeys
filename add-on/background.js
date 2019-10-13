@@ -2,6 +2,7 @@
 /* eslint-env browser, webextensions */
 
 const googleMusicPlayerUrl = 'https://play.google.com/music/listen*'
+const youtubeMusicPlayerUrl = 'https://music.youtube.com/*'
 const togglePlaybackCommand = 'toggle-playback'
 const previousSongCommand = 'previous-song'
 const nextSongCommand = 'next-song'
@@ -14,7 +15,7 @@ async function openGoogleMusic () {
   })
 }
 
-function scriptFor (command) {
+function scriptFor (command, scriptThatClicksOn) {
   switch (command) {
     case togglePlaybackCommand:
     case togglePlaybackCommand + backupSuffix:
@@ -28,9 +29,11 @@ function scriptFor (command) {
   }
 }
 
-function scriptThatClicksOn (actionName) {
-  let script = function () {
-    let buttons = document.getElementsByTagName('paper-icon-button')
+function googleMusicScriptThatClicksOn (actionName) { // TODO: remove them GM is dead
+  const script = function () {
+    // Google Music (to be removed)
+    // ============================
+    const buttons = document.getElementsByTagName('paper-icon-button')
     let disabledMainPlayButton = false
     for (let i = 0; i < buttons.length; i++) {
       if (buttons[i].getAttribute('data-id') === 'kitty') {
@@ -42,7 +45,7 @@ function scriptThatClicksOn (actionName) {
         break
       }
     }
-    let tryFallbackButtons = function () {
+    const tryFallbackButtons = function () {
       // try I'm Feeling Lucky button (main page)
       let buttons = document.getElementsByTagName('gpm-ifl-button')
       if (buttons.length > 0) {
@@ -85,18 +88,47 @@ function scriptThatClicksOn (actionName) {
   return '(' + script.toString().replace('kitty', actionName) + ')()'
 }
 
+function youTubeMusicScriptThatClicksOn (actionName) {
+  const script = function () {
+    // TODO: revisit when YouTube Music adds 'feeling lucky' on page without player
+    const findButton = (actionName) => {
+      switch (actionName) {
+        case 'rewind':
+          return document.querySelector('paper-icon-button.previous-button')
+        case 'forward':
+          return document.querySelector('paper-icon-button.next-button')
+        case 'play-pause':
+          return document.querySelector('paper-icon-button.play-pause-button') || document.getElementById('play-button')
+      }
+    }
+    const button = findButton('kitty')
+    if (button) {
+      button.click()
+    } else {
+      console.log('[YouTube Music Hotkeys] unable to find the play button, please report a bug at https://github.com/lidel/google-music-hotkeys/issues/new')
+    }
+  }
+  return '(' + script.toString().replace('kitty', actionName) + ')()'
+}
+
 async function executeGoogleMusicCommand (command) {
   console.log('[Google Music Hotkeys] executing command: ', command)
   const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
-  if (gmTabs.length === 0) {
-    openGoogleMusic()
+  const ymTabs = await browser.tabs.query({ url: youtubeMusicPlayerUrl })
+  if (gmTabs.length === 0 && ymTabs.length === 0) {
+    openGoogleMusic() // TODO: switch to YouTube Music when GM is dead
     return
   }
-  for (let tab of gmTabs) {
-    // console.log('tab', tab)
+  for (const tab of gmTabs) { // TODO: remove them GM is dead
     browser.tabs.executeScript(tab.id, {
       runAt: 'document_start',
-      code: scriptFor(command)
+      code: scriptFor(command, googleMusicScriptThatClicksOn)
+    })
+  }
+  for (const tab of ymTabs) {
+    browser.tabs.executeScript(tab.id, {
+      runAt: 'document_start',
+      code: scriptFor(command, youTubeMusicScriptThatClicksOn)
     })
   }
 }

@@ -1,9 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "Google Music Hotkeys",
-    "version" : "1.6.1",
-
-    "description": "Use keyboard shortcuts to control Google Music",
+    "name": "Google YouTube Music Hotkeys",
+    "version" : "1.7.0",
+    "description": "Use keyboard shortcuts to control Google/YouTube Music",
     "homepage_url": "https://github.com/lidel/google-music-hotkeys",
     "author": "Marcin Rataj",
     "icons": {
@@ -12,6 +11,7 @@
 
     "permissions": [
         "https://play.google.com/music/listen*",
+        "https://music.youtube.com/*",
         "contextMenus",
         "tabs"
     ],
@@ -58,7 +58,10 @@
 
     "content_scripts": [
         {
-            "matches": ["https://play.google.com/music/listen*"],
+            "matches": [
+              "https://play.google.com/music/listen*",
+              "https://music.youtube.com/*"
+            ],
             "js": ["browser-polyfill.min.js", "autoplay.js"],
             "all_frames" : false,
             "run_at": "document_idle"
