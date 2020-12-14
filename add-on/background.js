@@ -8,10 +8,10 @@ const previousSongCommand = 'previous-song'
 const nextSongCommand = 'next-song'
 const backupSuffix = '-backup'
 
-async function openGoogleMusic () {
+async function openPlayer () {
   await browser.tabs.create({
     pinned: true,
-    url: googleMusicPlayerUrl.replace('*', '')
+    url: youtubeMusicPlayerUrl.replace('*', '')
   })
 }
 
@@ -62,6 +62,7 @@ function googleMusicScriptThatClicksOn (actionName) { // TODO: remove them GM is
           return
         }
       }
+      // TODO: try 'play all' button (eg. on album listing page)
       // try standalone play button (eg. on a radio page)
       const playButton = document.getElementById('playButton')
       if (playButton) {
@@ -116,7 +117,7 @@ async function executeGoogleMusicCommand (command) {
   const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
   const ymTabs = await browser.tabs.query({ url: youtubeMusicPlayerUrl })
   if (gmTabs.length === 0 && ymTabs.length === 0) {
-    openGoogleMusic() // TODO: switch to YouTube Music when GM is dead
+    openPlayer()
     return
   }
   for (const tab of gmTabs) { // TODO: remove them GM is dead
