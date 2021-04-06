@@ -113,6 +113,26 @@ function youTubeMusicScriptThatClicksOn (actionName) {
   return '(' + script.toString().replace('kitty', actionName) + ')()'
 }
 
+function podcastsScriptThatClicksOn (actionName) {
+  const script = function () {
+    
+    const audioNode = document.querySelector(audio);
+    switch (actionName) {
+      case 'rewind':
+        return audioNode.currentTime -= 10 
+      case 'forward':
+        return audioNode.currentTime += 30
+      case 'play-pause':
+        if (audioNode.paused)
+          return audioNode.play() 
+        else
+          return audioNode.pause() 
+    }
+    
+  }
+  return '(' + script.toString() + ')()'
+}
+
 async function executeGoogleMusicCommand (command) {
   console.log('[Google Music Hotkeys] executing command: ', command)
   const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
