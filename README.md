@@ -7,6 +7,12 @@
 I wanted to control background playback of Google / YouTube Music without switching tabs.
 That is all :-)
 
+## Install
+
+| Firefox                                                                                                                                                          | Chrome / Chromium                                                                                                                                                                              |
+| -------------                                                                                                                                                    | -------------                                                                                                                                                                                  |
+| [![Get the add-on](https://ipfs.io/ipfs/QmWNa64XjA78QvK3zG2593bSMizkDXXcubDHjnRDYUivqt)](https://addons.mozilla.org/en-US/firefox/addon/google-music-hotkeys-webext/) | [![](https://ipfs.io/ipfs/QmXeTTMAxJVSZLqNcVzBdsAZKhWUpP7w7QAZ8f3Bnmk3Mj)](https://chrome.google.com/webstore/detail/google-music-hotkeys/fgjkdpncbpnlhbdbmelbhmapblgaamkl) |
+
 ## Features
 
 - works in Firefox and Chromium-based browsers
@@ -27,12 +33,6 @@ That is all :-)
 - open and pin Google Music if it is not open yet
 - try to build a new playlist when one hasn't been loaded yet
 - support for autoplay of bookmarks with `&autoplay=true` parameter
-
-## Install
-
-| Firefox                                                                                                                                                          | Chrome / Chromium                                                                                                                                                                              |
-| -------------                                                                                                                                                    | -------------                                                                                                                                                                                  |
-| [![Get the add-on](https://blog.mozilla.org/addons/files/2015/11/AMO-button_1.png)](https://addons.mozilla.org/en-US/firefox/addon/google-music-hotkeys-webext/) | [![](https://developer.chrome.com/webstore/images/ChromeWebStore_BadgeWBorder_v2_206x58.png)](https://chrome.google.com/webstore/detail/google-music-hotkeys/fgjkdpncbpnlhbdbmelbhmapblgaamkl) |
 
 ## How To Customize Shortcuts
 
