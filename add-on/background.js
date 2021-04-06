@@ -117,7 +117,7 @@ function youTubeMusicScriptThatClicksOn (actionName) {
 function podcastsScriptThatClicksOn (actionName) {
   const script = function () {
     
-    const audioNode = document.querySelector(audio);
+    const audioNode = document.querySelector("audio");
     switch (actionName) {
       case 'rewind':
         return audioNode.currentTime -= 10 
