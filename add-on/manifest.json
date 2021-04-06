@@ -60,6 +60,7 @@
         {
             "matches": [
               "https://play.google.com/music/listen*",
+              "https://podcasts.google.com/*",
               "https://music.youtube.com/*"
             ],
             "js": ["browser-polyfill.min.js", "autoplay.js"],
