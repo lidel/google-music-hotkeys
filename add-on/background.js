@@ -3,6 +3,7 @@
 
 const googleMusicPlayerUrl = 'https://play.google.com/music/listen*'
 const youtubeMusicPlayerUrl = 'https://music.youtube.com/*'
+const gpodcastMusicPlayerUrl = 'https://podcasts.google.com/*'
 const togglePlaybackCommand = 'toggle-playback'
 const previousSongCommand = 'previous-song'
 const nextSongCommand = 'next-song'
@@ -137,7 +138,10 @@ async function executeGoogleMusicCommand (command) {
   console.log('[Google Music Hotkeys] executing command: ', command)
   const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
   const ymTabs = await browser.tabs.query({ url: youtubeMusicPlayerUrl })
-  if (gmTabs.length === 0 && ymTabs.length === 0) {
+  const gpTabs = await browser.tabs.query({ url: gpodcastMusicPlayerUrl })
+  
+  
+  if (gmTabs.length === 0 && ymTabs.length === 0 && gpTabs.length === 0) {
     openPlayer()
     return
   }
@@ -151,6 +155,12 @@ async function executeGoogleMusicCommand (command) {
     browser.tabs.executeScript(tab.id, {
       runAt: 'document_start',
       code: scriptFor(command, youTubeMusicScriptThatClicksOn)
+    })
+  }
+  for (const tab of gpTabs) {
+    browser.tabs.executeScript(tab.id, {
+      runAt: 'document_start',
+      code: scriptFor(command, podcastsScriptThatClicksOn)
     })
   }
 }
