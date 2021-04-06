@@ -93,13 +93,14 @@ function youTubeMusicScriptThatClicksOn (actionName) {
   const script = function () {
     // TODO: revisit when YouTube Music adds 'feeling lucky' on page without player
     const findButton = (actionName) => {
+      const qs = (q) => document.querySelector(q)
       switch (actionName) {
         case 'rewind':
-          return document.querySelector('paper-icon-button.previous-button')
+          return qs('.ytmusic-player-bar.previous-button') || qs('.previous-button') 
         case 'forward':
-          return document.querySelector('paper-icon-button.next-button')
+          return qs('.ytmusic-player-bar.next-button') || qs('.next-button')
         case 'play-pause':
-          return document.querySelector('paper-icon-button.play-pause-button') || document.getElementById('play-button')
+          return qs('.ytmusic-player-bar.play-pause-button') || qs('.play-pause-button') || document.getElementById('play-button')
       }
     }
     const button = findButton('kitty')

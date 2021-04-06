@@ -72,7 +72,7 @@ Chromium-based browsers provide global UI for managing shortcuts of all extensio
 
 
 ```
-npm install
+npm ci
 npm run build
 npm run firefox
 ```
