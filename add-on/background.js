@@ -129,6 +129,7 @@ function podcastsScriptThatClicksOn(actionName) {
       }
     } else {
       const audioNode = document.querySelector("audio");
+      
       switch (actionName) {
         case 'rewind':
           return audioNode.currentTime -= 10
