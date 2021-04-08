@@ -116,19 +116,32 @@ function youTubeMusicScriptThatClicksOn (actionName) {
 
 function podcastsScriptThatClicksOn(actionName) {
   const script = function (actionName) {
-
-    const audioNode = document.querySelector("audio");
-    switch (actionName) {
-      case 'rewind':
-        return audioNode.currentTime -= 10
-      case 'forward':
-        return audioNode.currentTime += 30
-      case 'play-pause':
-        if (audioNode.paused)
-          return audioNode.play()
-        else
-          return audioNode.pause()
+    const playButtonsContainer = document.querySelector("#ZCHFDb > div > div > c-wiz > div.d5Ncgc > div.dq2Yed > div.yGpUe > div.Jy7gWd");
+    
+    if (playButtonsContainer != null) {
+      switch (actionName) {
+        case 'rewind':
+          return playButtonsContainer.children[0].children[0].click();
+        case 'forward':
+          return playButtonsContainer.children[2].children[0].click();
+        case 'play-pause':
+            return playButtonsContainer.children[1].children[0].click();
+      }
+    } else {
+      const audioNode = document.querySelector("audio");
+      switch (actionName) {
+        case 'rewind':
+          return audioNode.currentTime -= 10
+        case 'forward':
+          return audioNode.currentTime += 30
+        case 'play-pause':
+          if (audioNode.paused)
+            return audioNode.play()
+          else
+            return audioNode.pause()
+      }
     }
+    
 
   }
   return '(' + script.toString() + ')("' + actionName + '")'
