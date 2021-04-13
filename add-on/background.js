@@ -134,8 +134,7 @@ function podcastsScriptThatClicksOn(actionName) {
         case 'forward':
           return getElementFromAria(localizedAria.forward).click();
         case 'play-pause':
-          button = getElementFromAria(localizedAria.play, localizedAria.pause);
-          return button.click();
+          return getElementFromAria(localizedAria.play, localizedAria.pause).click();
       }
     } catch (err) {
       console.debug(err);
