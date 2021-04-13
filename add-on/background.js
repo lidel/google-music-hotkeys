@@ -9,14 +9,14 @@ const previousSongCommand = 'previous-song'
 const nextSongCommand = 'next-song'
 const backupSuffix = '-backup'
 
-async function openPlayer() {
+async function openPlayer () {
   await browser.tabs.create({
     pinned: true,
     url: youtubeMusicPlayerUrl.replace('*', '')
   })
 }
 
-function scriptFor(command, scriptThatClicksOn) {
+function scriptFor (command, scriptThatClicksOn) {
   switch (command) {
     case togglePlaybackCommand:
     case togglePlaybackCommand + backupSuffix:
@@ -30,7 +30,7 @@ function scriptFor(command, scriptThatClicksOn) {
   }
 }
 
-function googleMusicScriptThatClicksOn(actionName) { // TODO: remove them GM is dead
+function googleMusicScriptThatClicksOn (actionName) { // TODO: remove them GM is dead
   const script = function () {
     // Google Music (to be removed)
     // ============================
@@ -90,7 +90,7 @@ function googleMusicScriptThatClicksOn(actionName) { // TODO: remove them GM is 
   return '(' + script.toString().replace('kitty', actionName) + ')()'
 }
 
-function youTubeMusicScriptThatClicksOn(actionName) {
+function youTubeMusicScriptThatClicksOn (actionName) {
   const script = function () {
     // TODO: revisit when YouTube Music adds 'feeling lucky' on page without player
     const findButton = (actionName) => {
@@ -161,7 +161,7 @@ function podcastsScriptThatClicksOn(actionName) {
 
 
 
-async function executeGoogleMusicCommand(command) {
+async function executeGoogleMusicCommand (command) {
   console.log('[Google Music Hotkeys] executing command: ', command)
   const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
   const ymTabs = await browser.tabs.query({ url: youtubeMusicPlayerUrl })
@@ -192,7 +192,7 @@ async function executeGoogleMusicCommand(command) {
   }
 }
 
-async function onRuntimeMessage(request, sender) {
+async function onRuntimeMessage (request, sender) {
   console.log('[Google Music Hotkeys] onRuntimeMessage', request)
   await browser.tabs.executeScript(sender.tab.id, {
     runAt: 'document_start',
