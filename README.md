@@ -1,10 +1,10 @@
-# Google / YouTube Music Hotkeys
+# YouTube Music Hotkeys
 
-> Browser extension that adds keyboard control to the web version of Google / YouTube Music 
+> Browser extension that adds keyboard control to the web version of Google Podcasts or YouTube Music 
 
 ## Background
 
-I wanted to control background playback of Google / YouTube Music without switching tabs.
+I wanted to control background playback of YouTube Music (named Google Music at the time) without switching tabs.
 That is all :-)
 
 ## Install
@@ -27,10 +27,11 @@ That is all :-)
       > default: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>, visual hint: <kbd>)</kbd>  
       > windows: <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>
 - **[option to customize default shortcuts](#how-to-customize-shortcuts)**
+- works with YouTube Music but also supports Google Podcasts (next/previous jump back/forward within current episode)
 - toolbar button
     - regular click toggles playback
     - context-click shows menu with other playback controls
-- open and pin Google Music if it is not open yet
+- open and pin YouTube Music if it is not open yet
 - try to build a new playlist when one hasn't been loaded yet
 - support for autoplay of bookmarks with `&autoplay=true` parameter
 
