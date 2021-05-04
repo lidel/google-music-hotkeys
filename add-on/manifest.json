@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "YouTube Music Hotkeys",
-    "version" : "1.8.1",
+    "version" : "1.9.0",
     "description": "Use keyboard shortcuts to control YouTube Music",
     "homepage_url": "https://github.com/lidel/google-music-hotkeys",
     "author": "Marcin Rataj",
@@ -11,7 +11,7 @@
 
     "permissions": [
         "https://play.google.com/music/listen*",
-      	"https://podcasts.google.com/*",
+        "https://podcasts.google.com/*",
         "https://music.youtube.com/*",
         "contextMenus",
         "tabs"
