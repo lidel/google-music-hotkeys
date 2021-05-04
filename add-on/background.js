@@ -3,6 +3,7 @@
 
 const googleMusicPlayerUrl = 'https://play.google.com/music/listen*'
 const youtubeMusicPlayerUrl = 'https://music.youtube.com/*'
+const gpodcastMusicPlayerUrl = 'https://podcasts.google.com/*'
 const togglePlaybackCommand = 'toggle-playback'
 const previousSongCommand = 'previous-song'
 const nextSongCommand = 'next-song'
@@ -96,7 +97,7 @@ function youTubeMusicScriptThatClicksOn (actionName) {
       const qs = (q) => document.querySelector(q)
       switch (actionName) {
         case 'rewind':
-          return qs('.ytmusic-player-bar.previous-button') || qs('.previous-button') 
+          return qs('.ytmusic-player-bar.previous-button') || qs('.previous-button')
         case 'forward':
           return qs('.ytmusic-player-bar.next-button') || qs('.next-button')
         case 'play-pause':
@@ -113,11 +114,53 @@ function youTubeMusicScriptThatClicksOn (actionName) {
   return '(' + script.toString().replace('kitty', actionName) + ')()'
 }
 
+function podcastsScriptThatClicksOn (actionName) {
+  const script = function (actionName) {
+    const getElementFromAria = function (...strings) {
+      const selector = strings.map(str => `div[aria-label="${str}"]`).join(', ')
+      return document.querySelector(selector)
+    }
+
+    try {
+      const ariaIdsPerLang = {
+        es: { play: 'Reproducir', pause: 'Pausar', rewind: 'Retroceder 10 segundos', forward: 'Avanzar 30 segundos' },
+        en: { play: 'Play', pause: 'Pause', rewind: 'Rewind 10 seconds', forward: 'Fast forward 30 seconds' }
+      }
+      const localizedAria = ariaIdsPerLang[document.querySelector('html').lang]
+      switch (actionName) {
+        case 'rewind':
+          return getElementFromAria(localizedAria.rewind).click()
+        case 'forward':
+          return getElementFromAria(localizedAria.forward).click()
+        case 'play-pause':
+          return getElementFromAria(localizedAria.play, localizedAria.pause).click()
+      }
+    } catch (err) {
+      console.debug('[Google Podcasts hotkeys] unable to find button via aria labels, falling back to operating on audio node', err)
+      const audioNode = document.querySelector('audio')
+
+      switch (actionName) {
+        case 'rewind':
+          audioNode.currentTime -= 10
+          return
+        case 'forward':
+          audioNode.currentTime += 30
+          return
+        case 'play-pause':
+          if (audioNode.paused) { return audioNode.play() } else { return audioNode.pause() }
+      }
+    }
+  }
+  return '(' + script.toString() + ')("' + actionName + '")'
+}
+
 async function executeGoogleMusicCommand (command) {
   console.log('[Google Music Hotkeys] executing command: ', command)
   const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
   const ymTabs = await browser.tabs.query({ url: youtubeMusicPlayerUrl })
-  if (gmTabs.length === 0 && ymTabs.length === 0) {
+  const gpTabs = await browser.tabs.query({ url: gpodcastMusicPlayerUrl })
+
+  if (gmTabs.length === 0 && ymTabs.length === 0 && gpTabs.length === 0) {
     openPlayer()
     return
   }
@@ -131,6 +174,12 @@ async function executeGoogleMusicCommand (command) {
     browser.tabs.executeScript(tab.id, {
       runAt: 'document_start',
       code: scriptFor(command, youTubeMusicScriptThatClicksOn)
+    })
+  }
+  for (const tab of gpTabs) {
+    browser.tabs.executeScript(tab.id, {
+      runAt: 'document_start',
+      code: scriptFor(command, podcastsScriptThatClicksOn)
     })
   }
 }
