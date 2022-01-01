@@ -10,7 +10,6 @@
     "start": "run-s clean build firefox",
     "clean": "shx rm -f build/*.zip",
     "build": "run-s clean build:*",
-    "build:copy-wx-polyfill-lib": "shx cp node_modules/webextension-polyfill/dist/browser-polyfill.min.js add-on/browser-polyfill.min.js",
     "build:bundle-extension": "web-ext build -s add-on/ -a build/",
     "lint": "run-s lint:*",
     "lint:standard": "standard --fix -v \"add-on/*.js\"",
@@ -23,18 +22,10 @@
   },
   "private": true,
   "preferGlobal": false,
-  "standard": {
-    "ignore": [
-      "add-on/browser-polyfill.min.js"
-    ]
-  },
   "devDependencies": {
     "npm-run-all": "4.1.5",
     "shx": "0.3.3",
-    "standard": "16.0.3",
-    "web-ext": "6.0.0"
-  },
-  "dependencies": {
-    "webextension-polyfill": "0.7.0"
+    "standard": "16.0.4",
+    "web-ext": "6.6.0"
   }
 }
