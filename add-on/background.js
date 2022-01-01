@@ -1,5 +1,5 @@
 'use strict'
-/* eslint-env browser, webextensions */
+/* eslint-env chrome. webextensions */
 
 const googleMusicPlayerUrl = 'https://play.google.com/music/listen*'
 const youtubeMusicPlayerUrl = 'https://music.youtube.com/*'
@@ -10,7 +10,7 @@ const nextSongCommand = 'next-song'
 const backupSuffix = '-backup'
 
 async function openPlayer () {
-  await browser.tabs.create({
+  await chrome.tabs.create({
     pinned: true,
     url: youtubeMusicPlayerUrl.replace('*', '')
   })
@@ -30,68 +30,9 @@ function scriptFor (command, scriptThatClicksOn) {
   }
 }
 
-function googleMusicScriptThatClicksOn (actionName) { // TODO: remove them GM is dead
-  const script = function () {
-    // Google Music (to be removed)
-    // ============================
-    const buttons = document.getElementsByTagName('paper-icon-button')
-    let disabledMainPlayButton = false
-    for (let i = 0; i < buttons.length; i++) {
-      if (buttons[i].getAttribute('data-id') === 'kitty') {
-        if (buttons[i].style['pointer-events'] === 'none') {
-          disabledMainPlayButton = true
-        } else {
-          buttons[i].click()
-        }
-        break
-      }
-    }
-    const tryFallbackButtons = function () {
-      // try I'm Feeling Lucky button (main page)
-      let buttons = document.getElementsByTagName('gpm-ifl-button')
-      if (buttons.length > 0) {
-        console.log('[Google Music Hotkeys] Playing Feeling Lucky Radio')
-        buttons[0].click()
-        return
-      }
-      // try first 'play' button (eg. on album listing page)
-      buttons = document.getElementsByTagName('button')
-      for (let i = 0; i < buttons.length; i++) {
-        if (buttons[i].getAttribute('data-id') === 'play') {
-          console.log('[Google Music Hotkeys] Playing first playable item')
-          buttons[i].click()
-          return
-        }
-      }
-      // TODO: try 'play all' button (eg. on album listing page)
-      // try standalone play button (eg. on a radio page)
-      const playButton = document.getElementById('playButton')
-      if (playButton) {
-        console.log('[Google Music Hotkeys] Playing current context')
-        playButton.click()
-        return
-      }
-      // try context's shuffle button (eg. on the main library page)
-      buttons = document.getElementsByTagName('paper-button')
-      for (let i = 0; i < buttons.length; i++) {
-        if (buttons[i].getAttribute('data-id') === 'shuffle-my-library') {
-          console.log('[Google Music Hotkeys] Playing shuffled library')
-          buttons[i].click()
-          return
-        }
-      }
-    }
-    if (disabledMainPlayButton) {
-      // https://github.com/lidel/google-music-hotkeys/issues/2
-      console.log('[Google Music Hotkeys] trying to load a new playlist..')
-      tryFallbackButtons()
-    }
-  }
-  return '(' + script.toString().replace('kitty', actionName) + ')()'
-}
 
 function youTubeMusicScriptThatClicksOn (actionName) {
-  const script = function () {
+  return () => {
     // TODO: revisit when YouTube Music adds 'feeling lucky' on page without player
     const findButton = (actionName) => {
       const qs = (q) => document.querySelector(q)
@@ -104,18 +45,17 @@ function youTubeMusicScriptThatClicksOn (actionName) {
           return qs('.ytmusic-player-bar.play-pause-button') || qs('.play-pause-button') || document.getElementById('play-button')
       }
     }
-    const button = findButton('kitty')
+    const button = findButton(actionName)
     if (button) {
       button.click()
     } else {
       console.log('[YouTube Music Hotkeys] unable to find the play button, please report a bug at https://github.com/lidel/google-music-hotkeys/issues/new')
     }
   }
-  return '(' + script.toString().replace('kitty', actionName) + ')()'
 }
 
 function podcastsScriptThatClicksOn (actionName) {
-  const script = function (actionName) {
+  return () => {
     const getElementFromAria = function (...strings) {
       const selector = strings.map(str => `div[aria-label="${str}"]`).join(', ')
       return document.querySelector(selector)
@@ -151,89 +91,88 @@ function podcastsScriptThatClicksOn (actionName) {
       }
     }
   }
-  return '(' + script.toString() + ')("' + actionName + '")'
 }
 
 async function executeGoogleMusicCommand (command) {
   console.log('[Google Music Hotkeys] executing command: ', command)
-  const gmTabs = await browser.tabs.query({ url: googleMusicPlayerUrl })
-  const ymTabs = await browser.tabs.query({ url: youtubeMusicPlayerUrl })
-  const gpTabs = await browser.tabs.query({ url: gpodcastMusicPlayerUrl })
+  const gmTabs = await chrome.tabs.query({ url: googleMusicPlayerUrl })
+  const ymTabs = await chrome.tabs.query({ url: youtubeMusicPlayerUrl })
+  const gpTabs = await chrome.tabs.query({ url: gpodcastMusicPlayerUrl })
 
   if (gmTabs.length === 0 && ymTabs.length === 0 && gpTabs.length === 0) {
     openPlayer()
     return
   }
-  for (const tab of gmTabs) { // TODO: remove them GM is dead
-    browser.tabs.executeScript(tab.id, {
-      runAt: 'document_start',
-      code: scriptFor(command, googleMusicScriptThatClicksOn)
-    })
-  }
   for (const tab of ymTabs) {
-    browser.tabs.executeScript(tab.id, {
-      runAt: 'document_start',
-      code: scriptFor(command, youTubeMusicScriptThatClicksOn)
+    // TODO: wait until chrome.scripting.executeScript is present in Brave
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: scriptFor(command, youTubeMusicScriptThatClicksOn)
     })
   }
   for (const tab of gpTabs) {
-    browser.tabs.executeScript(tab.id, {
-      runAt: 'document_start',
-      code: scriptFor(command, podcastsScriptThatClicksOn)
+    chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: scriptFor(command, podcastsScriptThatClicksOn)
     })
   }
 }
 
 async function onRuntimeMessage (request, sender) {
   console.log('[Google Music Hotkeys] onRuntimeMessage', request)
-  await browser.tabs.executeScript(sender.tab.id, {
-    runAt: 'document_start',
-    code: scriptFor(request.command)
+  await chrome.scripting.executeScript({
+    target: { tabId: sender.tab.id },
+    func: scriptFor(request.command)
   })
 }
 
 // listen for keyboard hotkeys
-browser.commands.onCommand.addListener(executeGoogleMusicCommand)
+chrome.commands.onCommand.addListener(executeGoogleMusicCommand)
 
 // listen for messages from content script
-setTimeout(() => {
-  // this needs to be run bit later due to a bug in Chrome with current browser polyfill:
-  // Uncaught Error: runtime namespace is null or undefined
-  browser.runtime.onMessage.addListener(onRuntimeMessage)
-}, 250)
+chrome.runtime.onMessage.addListener(onRuntimeMessage)
 
-// regular click on browser action toggles playback
-browser.browserAction.onClicked.addListener(() => executeGoogleMusicCommand('toggle-playback'))
+// regular click on chrome.action toggles playback
+chrome.action.onClicked.addListener(() => executeGoogleMusicCommand('toggle-playback'))
 
-// context-click on browser action displays more options
-browser.contextMenus.create({
+// context-click on chrome.action displays more options
+
+/* TODO
+chrome.contextMenus.removeAll()
+
+chrome.contextMenus.create({
   id: 'toggle-playback-menu-item',
   title: 'Toggle Playback',
   contexts: ['browser_action'],
-  onclick: () => executeGoogleMusicCommand(togglePlaybackCommand)
+  // TODO: onclick: () => executeGoogleMusicCommand(togglePlaybackCommand)
+  // TODO Extensions using event pages or Service Workers cannot pass an onclick parameter to chrome.contextMenus.create.
+  // TODO Instead, use the chrome.contextMenus.onClicked event.
 })
-browser.contextMenus.create({
+
+chrome.contextMenus.create({
   id: 'previous-song-menu-item',
   title: 'Previous Song',
   contexts: ['browser_action'],
-  onclick: () => executeGoogleMusicCommand(previousSongCommand)
+  // TODO: onclick: () => executeGoogleMusicCommand(previousSongCommand)
 })
-browser.contextMenus.create({
+chrome.contextMenus.create({
   id: 'next-song-menu-item',
   title: 'Next Song',
   contexts: ['browser_action'],
-  onclick: () => executeGoogleMusicCommand(nextSongCommand)
+  // TODO: onclick: () => executeGoogleMusicCommand(nextSongCommand)
 })
-browser.contextMenus.create({
+chrome.contextMenus.create({
   id: 'open-preferences-menu-item',
   title: 'Customize Shortcuts',
   contexts: ['browser_action'],
-  onclick: () => {
-    browser.runtime.openOptionsPage()
+  TODO onclick: () => {
+    chrome.runtime.openOptionsPage()
       .catch((err) => {
         console.error('runtime.openOptionsPage() failed, opening options page in tab instead.', err)
-        // fallback for weird browsers ;-)
-        browser.tabs.create({ url: browser.extension.getURL('options.html') })
+        // fallback for weird chrome. ;-)
+        chrome.tabs.create({ url: chrome.extension.getURL('options.html') })
       })
   }
 })
+
+*/
