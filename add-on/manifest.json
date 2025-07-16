@@ -2,6 +2,11 @@
     "manifest_version": 3,
     "name": "YouTube Music Hotkeys",
     "version" : "3.0.0",
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "youtube-music-hotkeys@lidel.org"
+        }
+    },
     "description": "Use keyboard shortcuts to control YouTube Music",
     "homepage_url": "https://github.com/lidel/google-music-hotkeys",
     "author": "lidel",
@@ -24,12 +29,10 @@
     },
 
     "options_ui": {
-        "page": "options.html",
-        "browser_style": true
+        "page": "options.html"
     },
 
     "action": {
-        "browser_style": true,
         "default_icon": {
             "128": "Play_music_triangle.png"
         }
