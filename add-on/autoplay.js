@@ -1,16 +1,20 @@
 'use strict'
-/* eslint-env browser, webextensions */
+/* eslint-env chrome, webextensions */
 
 // check if URL includes autoplay token
 if (decodeURIComponent(window.location.href).includes('autoplay=true')) {
-  console.log('[Google Music Hotkeys] Autoplay token detected')
+  console.log('[YouTube Music Hotkeys] Autoplay token detected')
   const autoplay = setInterval(async () => {
-    const playbutton = document.getElementById('player-bar-play-pause')
-    // press button only if  there is no playback
-    if (playbutton && playbutton.title === 'Play') {
+    // Look for YouTube Music play button
+    const playbutton = document.querySelector('.ytmusic-player-bar .play-pause-button') ||
+                      document.querySelector('.play-pause-button') ||
+                      document.getElementById('play-button')
+
+    // Check if button exists and indicates paused state
+    if (playbutton && (playbutton.title === 'Play' || playbutton.getAttribute('aria-label')?.includes('Play'))) {
       clearInterval(autoplay)
-      await browser.runtime.sendMessage({ command: 'toggle-playback' })
-      console.log('[Google Music Hotkeys] Toggled playback')
+      await chrome.runtime.sendMessage({ command: 'toggle-playback' })
+      console.log('[YouTube Music Hotkeys] Toggled playback')
     }
   }, 1000)
 }

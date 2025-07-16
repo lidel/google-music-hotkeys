@@ -1,8 +1,22 @@
-/* global browser, ShortcutCustomizeUI */
+/* global ShortcutCustomizeUI */
+/* eslint-env chrome, webextensions */
 async function buildShortcutCustomizeUI () {
-  const browserInfo = await browser.runtime.getBrowserInfo()
-  const runtimeBrowserName = browserInfo ? browserInfo.name : 'unknown'
-  const runtimeIsFirefox = !!runtimeBrowserName.match('Firefox')
+  // Check if we're in Firefox by checking for browser polyfill
+  let runtimeIsFirefox = false
+
+  try {
+    // Try to detect Firefox by checking for Firefox-specific APIs
+    if (typeof window.browser !== 'undefined' &&
+        window.browser.runtime &&
+        typeof window.browser.runtime.getBrowserInfo === 'function') {
+      const browserInfo = await window.browser.runtime.getBrowserInfo()
+      const runtimeBrowserName = browserInfo ? browserInfo.name : 'unknown'
+      runtimeIsFirefox = !!runtimeBrowserName.match('Firefox')
+    }
+  } catch (err) {
+    // Not Firefox or browser API not available
+    runtimeIsFirefox = false
+  }
   const shortcutsSection = document.getElementById('shortcuts')
   if (runtimeIsFirefox) {
     shortcutsSection.classList.add('firefox')

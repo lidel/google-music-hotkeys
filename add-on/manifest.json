@@ -11,12 +11,11 @@
 
     "permissions": [
         "contextMenus",
-        "tabs"
+        "tabs",
+        "scripting"
     ],
 
     "host_permissions": [
-        "https://play.google.com/music/listen*",
-        "https://podcasts.google.com/*",
         "https://music.youtube.com/*"
     ],
 
@@ -63,8 +62,6 @@
     "content_scripts": [
         {
             "matches": [
-              "https://play.google.com/music/listen*",
-              "https://podcasts.google.com/*",
               "https://music.youtube.com/*"
             ],
             "js": ["autoplay.js"],
