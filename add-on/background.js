@@ -24,24 +24,35 @@ function getActionName (command) {
   }
 }
 
-function youTubeMusicScriptThatClicksOn (actionName) {
-  // TODO: revisit when YouTube Music adds 'feeling lucky' on page without player
-  const findButton = (action) => {
-    const qs = (q) => document.querySelector(q)
-    switch (action) {
-      case 'rewind':
-        return qs('.ytmusic-player-bar.previous-button') || qs('.previous-button')
-      case 'forward':
-        return qs('.ytmusic-player-bar.next-button') || qs('.next-button')
-      case 'play-pause':
-        return qs('.ytmusic-player-bar.play-pause-button') || qs('.play-pause-button') || document.getElementById('play-button')
-    }
+// Runs in the page's main world, the only place the YouTube player API on
+// #movie_player is visible. YouTube's own media key handlers use this API, and
+// it does not change with the player bar layout YouTube Music serves.
+function controlYouTubeMusicPlayer (actionName) {
+  // https://developers.google.com/youtube/iframe_api_reference#getPlayerState
+  const PLAYING = 1
+  const BUFFERING = 3
+  const player = document.getElementById('movie_player')
+  if (!player || !player.getPlayerState) {
+    console.log('[YouTube Music Hotkeys] unable to find the player, please report a bug at https://github.com/lidel/google-music-hotkeys/issues/new')
+    return
   }
-  const button = findButton(actionName)
-  if (button) {
-    button.click()
-  } else {
-    console.log('[YouTube Music Hotkeys] unable to find the play button, please report a bug at https://github.com/lidel/google-music-hotkeys/issues/new')
+  switch (actionName) {
+    case 'rewind':
+      player.previousVideo()
+      break
+    case 'forward':
+      player.nextVideo()
+      break
+    case 'play-pause': {
+      // during an ad the ad player is the presenting one, not the song
+      const state = player.getPlayerState(player.getPresentingPlayerType())
+      if (state === PLAYING || state === BUFFERING) {
+        player.pauseVideo()
+      } else {
+        player.playVideo()
+      }
+      break
+    }
   }
 }
 
@@ -59,7 +70,8 @@ async function executeCommand (command) {
   for (const tab of ymTabs) {
     chrome.scripting.executeScript({
       target: { tabId: tab.id },
-      func: youTubeMusicScriptThatClicksOn,
+      world: 'MAIN',
+      func: controlYouTubeMusicPlayer,
       args: [actionName]
     })
   }
@@ -70,7 +82,8 @@ async function onRuntimeMessage (request, sender) {
   const actionName = getActionName(request.command)
   await chrome.scripting.executeScript({
     target: { tabId: sender.tab.id },
-    func: youTubeMusicScriptThatClicksOn,
+    world: 'MAIN',
+    func: controlYouTubeMusicPlayer,
     args: [actionName]
   })
 }

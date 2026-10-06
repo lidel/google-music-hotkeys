@@ -32,7 +32,6 @@ That is all :-)
     - regular click toggles playback
     - context-click shows menu with other playback controls
 - open and pin YouTube Music if it is not open yet
-- try to build a new playlist when one hasn't been loaded yet
 - support for autoplay of bookmarks with `&autoplay=true` parameter
 
 ## How To Customize Shortcuts
