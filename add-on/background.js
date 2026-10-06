@@ -77,22 +77,8 @@ async function executeCommand (command) {
   }
 }
 
-async function onRuntimeMessage (request, sender) {
-  console.log('[YouTube Music Hotkeys] onRuntimeMessage', request)
-  const actionName = getActionName(request.command)
-  await chrome.scripting.executeScript({
-    target: { tabId: sender.tab.id },
-    world: 'MAIN',
-    func: controlYouTubeMusicPlayer,
-    args: [actionName]
-  })
-}
-
 // listen for keyboard hotkeys
 chrome.commands.onCommand.addListener(executeCommand)
-
-// listen for messages from content script
-chrome.runtime.onMessage.addListener(onRuntimeMessage)
 
 // regular click on chrome.action toggles playback
 chrome.action.onClicked.addListener(() => executeCommand('toggle-playback'))
