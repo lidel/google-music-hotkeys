@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "YouTube Music Hotkeys",
-    "version" : "3.0.0",
+    "version" : "3.0.1",
     "browser_specific_settings": {
         "gecko": {
             "id": "{de3f4b27-f150-4b3a-882a-7672a69eddf5}",
