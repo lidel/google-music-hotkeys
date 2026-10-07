@@ -1,10 +1,14 @@
 {
     "manifest_version": 3,
     "name": "YouTube Music Hotkeys",
-    "version" : "3.0.0",
+    "version" : "3.0.1",
     "browser_specific_settings": {
         "gecko": {
-            "id": "youtube-music-hotkeys@lidel.org"
+            "id": "{de3f4b27-f150-4b3a-882a-7672a69eddf5}",
+            "strict_min_version": "140.0",
+            "data_collection_permissions": {
+                "required": ["none"]
+            }
         }
     },
     "description": "Use keyboard shortcuts to control YouTube Music",
@@ -25,7 +29,8 @@
     ],
 
     "background": {
-        "service_worker": "background.js"
+        "service_worker": "background.js",
+        "scripts": ["background.js"]
     },
 
     "options_ui": {
@@ -69,7 +74,7 @@
             ],
             "js": ["autoplay.js"],
             "all_frames" : false,
-            "run_at": "document_idle"
+            "run_at": "document_start"
         }
     ]
 

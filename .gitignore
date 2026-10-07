@@ -1,8 +1,3 @@
-vendor
 node_modules
-firefox
-cache
 build
-npm-debug.log
-add-on/browser-polyfill.min.js
 .*~

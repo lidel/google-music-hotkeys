@@ -1,7 +1,6 @@
 /* global ShortcutCustomizeUI */
 /* eslint-env chrome, webextensions */
 async function buildShortcutCustomizeUI () {
-  // Check if we're in Firefox by checking for browser polyfill
   let runtimeIsFirefox = false
 
   try {
@@ -20,8 +19,7 @@ async function buildShortcutCustomizeUI () {
   const shortcutsSection = document.getElementById('shortcuts')
   if (runtimeIsFirefox) {
     shortcutsSection.classList.add('firefox')
-    // Firefox does not provide native UI for customizing shortcuts, just an API
-    // so we use a lib that builds UI in userland
+    // Chrome has no commands.update API, so only Firefox gets an editor here
     ShortcutCustomizeUI.build().then(list => {
       // remove old UI, if any
       while (shortcutsSection.firstChild) {
@@ -29,7 +27,7 @@ async function buildShortcutCustomizeUI () {
       }
       shortcutsSection.insertAdjacentHTML('afterbegin', '<h2>Customize Bindings</h2>')
       shortcutsSection.appendChild(list)
-      shortcutsSection.insertAdjacentHTML('beforeend', '<p>List of supported shortcut keys names can be found <a href="https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands#Shortcut_values">here</a>.</p>')
+      shortcutsSection.insertAdjacentHTML('beforeend', '<p>List of supported shortcut keys names can be found <a href="https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/commands#shortcut_values">here</a>.</p>')
     })
   }
 }
