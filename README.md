@@ -1,6 +1,6 @@
 # YouTube Music Hotkeys
 
-> Browser extension that adds keyboard control to the web version of Google Podcasts or YouTube Music 
+> Browser extension that adds keyboard control to the web version of YouTube Music
 
 ## Background
 
@@ -11,7 +11,7 @@ That is all :-)
 
 | Firefox                                                                                                                                                          | Chrome / Chromium                                                                                                                                                                              |
 | -------------                                                                                                                                                    | -------------                                                                                                                                                                                  |
-| [![Get the add-on](https://ipfs.io/ipfs/QmWNa64XjA78QvK3zG2593bSMizkDXXcubDHjnRDYUivqt)](https://addons.mozilla.org/en-US/firefox/addon/google-music-hotkeys-webext/) | [![](https://ipfs.io/ipfs/QmXeTTMAxJVSZLqNcVzBdsAZKhWUpP7w7QAZ8f3Bnmk3Mj)](https://chrome.google.com/webstore/detail/google-music-hotkeys/fgjkdpncbpnlhbdbmelbhmapblgaamkl) |
+| [Firefox Add-ons](https://addons.mozilla.org/en-US/firefox/addon/google-music-hotkeys-webext/) | [Chrome Web Store](https://chromewebstore.google.com/detail/youtube-music-hotkeys/fgjkdpncbpnlhbdbmelbhmapblgaamkl) |
 
 ## Features
 
@@ -27,7 +27,6 @@ That is all :-)
       > default: <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>, visual hint: <kbd>)</kbd>  
       > windows: <kbd>Alt</kbd>+<kbd>Shift</kbd>+<kbd>0</kbd>
 - **[option to customize default shortcuts](#how-to-customize-shortcuts)**
-- works with YouTube Music but also supports Google Podcasts (next/previous jump back/forward within current episode)
 - toolbar button
     - regular click toggles playback
     - context-click shows menu with other playback controls
@@ -39,11 +38,11 @@ That is all :-)
 ### Firefox
 
 
-1. Open `about:addons` → Google / YouTube Music Hotkeys_ → _Preferences_
+1. Open `about:addons` → _YouTube Music Hotkeys_ → _Preferences_
    - ..or just right-click the Browser Action:  
      > ![Right-click on Browser Action](https://user-images.githubusercontent.com/157609/39958925-24e00498-560a-11e8-937e-45bc8fbf43eb.png)
 3. Customize key bindings to your liking:
-   - Supported values are listed [here](https://developer.mozilla.org/en-US/Add-ons/WebExtensions/manifest.json/commands#Shortcut_values). Changes are saved automatically.
+   - Supported values are listed [here](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/commands#shortcut_values). Changes are saved automatically.
      > ![screenshot with old school shortcuts](https://user-images.githubusercontent.com/157609/39966689-5b7e9dce-56b0-11e8-886c-a98c2c3fef0e.png)
    - The shortcut may be specified as one of the following media keys:
      <kbd>MediaPlayPause</kbd>, <kbd>MediaPrevTrack</kbd>, <kbd>MediaNextTrack</kbd>
@@ -59,10 +58,9 @@ That is all :-)
 
 Chromium-based browsers provide global UI for managing shortcuts of all extensions.
 
-1. Open `chrome://extensions/configureCommands`
+1. Open `chrome://extensions/shortcuts`
 2. Customize key bindings to your liking
-3. You can optionally switch shortcut scope to _Global_:
-   > ![peek 2017-11-28 19-44](https://user-images.githubusercontent.com/157609/33337860-a03f29f6-d474-11e7-88b9-748739b20725.gif)    
+3. You can optionally switch shortcut scope to _Global_.
     _Global_ shortcuts should work even when Chrome isn’t ‘in focus’.    
     Keep in mind that _Global_ shortcuts can interfere with regular desktop app shortcuts.
 4. That is all!
