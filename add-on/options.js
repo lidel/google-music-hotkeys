@@ -33,3 +33,8 @@ async function buildShortcutCustomizeUI () {
 }
 
 document.addEventListener('DOMContentLoaded', buildShortcutCustomizeUI)
+
+// pages cannot link to chrome:// URLs, but the tabs API can open them
+document.getElementById('open-shortcuts').addEventListener('click', () => {
+  chrome.tabs.create({ url: 'chrome://extensions/shortcuts' })
+})
