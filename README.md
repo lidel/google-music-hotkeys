@@ -63,6 +63,7 @@ Chromium-based browsers provide global UI for managing shortcuts of all extensio
 3. You can optionally switch shortcut scope to _Global_.
     _Global_ shortcuts should work even when Chrome isn’t ‘in focus’.    
     Keep in mind that _Global_ shortcuts can interfere with regular desktop app shortcuts.
+    On macOS, a _Global_ shortcut with a digit does not fire if your keyboard layout needs <kbd>Shift</kbd> to type digits (French AZERTY, for example). Use a letter instead.
 4. That is all!
 
 
